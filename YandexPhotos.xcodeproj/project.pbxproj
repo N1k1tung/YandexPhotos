@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A11E5C12189D263700112112 /* YPThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A11E5C11189D263700112112 /* YPThumbCell.m */; };
+		A11E5C15189D265D00112112 /* YPCachingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A11E5C14189D265D00112112 /* YPCachingImageView.m */; };
 		A1907982189CE8C9001600F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1907981189CE8C9001600F5 /* UIKit.framework */; };
 		A1907984189CE8C9001600F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1907983189CE8C9001600F5 /* Foundation.framework */; };
 		A1907986189CE8C9001600F5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1907985189CE8C9001600F5 /* CoreGraphics.framework */; };
@@ -24,7 +26,11 @@
 		A19079BD189CEF85001600F5 /* YPThumbsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079BC189CEF85001600F5 /* YPThumbsVC.m */; };
 		A19079C1189CF09A001600F5 /* YPPhotoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079C0189CF09A001600F5 /* YPPhotoVC.m */; };
 		A19079D9189CF5E2001600F5 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079D6189CF5E2001600F5 /* XMLReader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		A19079DA189CF5E2001600F5 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079D6189CF5E2001600F5 /* XMLReader.m */; };
+		A19079DA189CF5E2001600F5 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079D6189CF5E2001600F5 /* XMLReader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		A19079EF189CFD24001600F5 /* YPRSSLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079EE189CFD24001600F5 /* YPRSSLoader.m */; };
+		A19079F0189CFD25001600F5 /* YPRSSLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079EE189CFD24001600F5 /* YPRSSLoader.m */; };
+		A19079F4189D04E0001600F5 /* YPRSSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079F3189D04DF001600F5 /* YPRSSItem.m */; };
+		A19079F5189D04E0001600F5 /* YPRSSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079F3189D04DF001600F5 /* YPRSSItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A11E5C10189D263700112112 /* YPThumbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPThumbCell.h; sourceTree = "<group>"; };
+		A11E5C11189D263700112112 /* YPThumbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPThumbCell.m; sourceTree = "<group>"; };
+		A11E5C13189D265D00112112 /* YPCachingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPCachingImageView.h; sourceTree = "<group>"; };
+		A11E5C14189D265D00112112 /* YPCachingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPCachingImageView.m; sourceTree = "<group>"; };
 		A190797D189CE8C9001600F5 /* YandexPhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YandexPhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1907981189CE8C9001600F5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A1907983189CE8C9001600F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -65,6 +75,10 @@
 		A19079D4189CF5E2001600F5 /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		A19079D5189CF5E2001600F5 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		A19079D6189CF5E2001600F5 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		A19079ED189CFD24001600F5 /* YPRSSLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPRSSLoader.h; sourceTree = "<group>"; };
+		A19079EE189CFD24001600F5 /* YPRSSLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPRSSLoader.m; sourceTree = "<group>"; };
+		A19079F2189D04DF001600F5 /* YPRSSItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPRSSItem.h; sourceTree = "<group>"; };
+		A19079F3189D04DF001600F5 /* YPRSSItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPRSSItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +105,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A11E5C0F189D262000112112 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				A11E5C10189D263700112112 /* YPThumbCell.h */,
+				A11E5C11189D263700112112 /* YPThumbCell.m */,
+				A11E5C13189D265D00112112 /* YPCachingImageView.h */,
+				A11E5C14189D265D00112112 /* YPCachingImageView.m */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		A1907972189CE8C9001600F5 = {
 			isa = PBXGroup;
 			children = (
@@ -126,7 +151,8 @@
 			children = (
 				A1907990189CE8C9001600F5 /* YPAppDelegate.h */,
 				A1907991189CE8C9001600F5 /* YPAppDelegate.m */,
-				A19079D3189CF5E2001600F5 /* XMLReader */,
+				A19079EC189CFD07001600F5 /* RSS */,
+				A11E5C0F189D262000112112 /* views */,
 				A19079BA189CEF85001600F5 /* screens */,
 				A1907988189CE8C9001600F5 /* Supporting Files */,
 			);
@@ -185,7 +211,20 @@
 				A19079D5189CF5E2001600F5 /* XMLReader.h */,
 				A19079D6189CF5E2001600F5 /* XMLReader.m */,
 			);
-			path = XMLReader;
+			name = XMLReader;
+			path = ../XMLReader;
+			sourceTree = "<group>";
+		};
+		A19079EC189CFD07001600F5 /* RSS */ = {
+			isa = PBXGroup;
+			children = (
+				A19079D3189CF5E2001600F5 /* XMLReader */,
+				A19079ED189CFD24001600F5 /* YPRSSLoader.h */,
+				A19079EE189CFD24001600F5 /* YPRSSLoader.m */,
+				A19079F2189D04DF001600F5 /* YPRSSItem.h */,
+				A19079F3189D04DF001600F5 /* YPRSSItem.m */,
+			);
+			path = RSS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +342,10 @@
 				A19079BD189CEF85001600F5 /* YPThumbsVC.m in Sources */,
 				A19079C1189CF09A001600F5 /* YPPhotoVC.m in Sources */,
 				A19079D9189CF5E2001600F5 /* XMLReader.m in Sources */,
+				A19079EF189CFD24001600F5 /* YPRSSLoader.m in Sources */,
+				A19079F4189D04E0001600F5 /* YPRSSItem.m in Sources */,
+				A11E5C12189D263700112112 /* YPThumbCell.m in Sources */,
+				A11E5C15189D265D00112112 /* YPCachingImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +355,8 @@
 			files = (
 				A19079AD189CE8C9001600F5 /* YandexPhotosTests.m in Sources */,
 				A19079DA189CF5E2001600F5 /* XMLReader.m in Sources */,
+				A19079F0189CFD25001600F5 /* YPRSSLoader.m in Sources */,
+				A19079F5189D04E0001600F5 /* YPRSSItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +515,7 @@
 				A19079B2189CE8C9001600F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A19079B3189CE8C9001600F5 /* Build configuration list for PBXNativeTarget "YandexPhotosTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +524,7 @@
 				A19079B5189CE8C9001600F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

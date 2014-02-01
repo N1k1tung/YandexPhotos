@@ -7,6 +7,7 @@
 //
 
 #import "YandexPhotosTests.h"
+#import "YPRSSLoader.h"
 
 @implementation YandexPhotosTests
 
@@ -24,9 +25,16 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testRSSLoader
 {
-    STFail(@"Unit tests are not implemented yet in YandexPhotosTests");
+	NSError* error = nil;
+	NSDictionary* rss = [YPRSSLoader loadRSS:&error];
+	
+	NSAssert(rss, @"failed to load or parse rss with error %@", error.localizedDescription);
+	
+	NSLog(@"RSS dictionary: %@", rss);
+	
+	NSAssert([YPRSSLoader itemsFromRSSDictionary:rss], @"couldn't parse rss dictionary into models");
 }
 
 @end

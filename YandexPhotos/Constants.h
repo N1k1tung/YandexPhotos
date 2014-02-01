@@ -10,5 +10,12 @@
 #define YandexPhotos_Constants_h
 
 #define API_RSS @"http://fotki.yandex.ru/calendar/rss2"
+#define IMAGES_DIR	@"images"
+
+#if DEBUG
+#	define	YPLog(...) NSLog(__VA_ARGS__)
+#else
+#	define	YPLog(...) {}
+#endif
 
 #endif

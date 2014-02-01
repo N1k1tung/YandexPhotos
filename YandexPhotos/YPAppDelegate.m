@@ -7,14 +7,20 @@
 //
 
 #import "YPAppDelegate.h"
+#import "YPThumbsVC.h"
 
 @implementation YPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+
+	
+	YPThumbsVC* thumbsVC = [YPThumbsVC new];
+	UINavigationController* rootVC = [[UINavigationController alloc] initWithRootViewController:thumbsVC];
+	
     self.window.backgroundColor = [UIColor whiteColor];
+	self.window.rootViewController = rootVC;
     [self.window makeKeyAndVisible];
     return YES;
 }

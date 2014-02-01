@@ -1,5 +1,5 @@
 //
-//  YPPhotoVC.h
+//  YPCachingImageView.h
 //  YandexPhotos
 //
 //  Created by n1k1tung on 2/1/14.
@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class YPRSSItemInfo;
+@interface YPCachingImageView : UIImageView
 
-@interface YPPhotoVC : UIViewController
-
-@property (nonatomic, strong) YPRSSItemInfo* itemInfo;
+- (void)setImageWithURL:(NSURL*)imageURL;
 
 @end

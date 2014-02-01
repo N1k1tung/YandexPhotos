@@ -12,9 +12,11 @@
 
 @interface YPPhotoVC ()
 
+@property (nonatomic, strong) UIScrollView* scrollView;
 @property (nonatomic, strong) YPCachingImageView* imageView;
 @property (nonatomic, strong) UILabel* authorLabel;
 @property (nonatomic, strong) UILabel* titleLabel;
+@property (nonatomic, strong) UIView* bottomPanel;
 
 @end
 
@@ -26,19 +28,23 @@ static const CGFloat kBottomPanelHeight = 44.f;
 {
 	self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
 	self.imageView = [[YPCachingImageView alloc] initWithFrame:self.view.bounds];
+	_imageView.fitContents = YES;
 	[self.view addSubview:_imageView];
 	
-	UIView* bottomPanel = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.imageView.bounds) - kBottomPanelHeight, CGRectGetWidth(self.imageView.bounds), kBottomPanelHeight)];
-	bottomPanel.userInteractionEnabled = NO;
-	bottomPanel.alpha = 0.4f;
-	[self.imageView addSubview:bottomPanel];
+	self.bottomPanel = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - kBottomPanelHeight, CGRectGetWidth(self.view.bounds), kBottomPanelHeight)];
+	_bottomPanel.userInteractionEnabled = NO;
+	_bottomPanel.alpha = 0.4f;
+	_bottomPanel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;	
+	[self.view addSubview:_bottomPanel];
 	
-	self.authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(bottomPanel.bounds), kBottomPanelHeight/2)];
+	self.authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_bottomPanel.bounds), kBottomPanelHeight/2)];
 	_authorLabel.textAlignment = NSTextAlignmentCenter;
-	[bottomPanel addSubview:_authorLabel];
-	self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kBottomPanelHeight/2, CGRectGetWidth(bottomPanel.bounds), kBottomPanelHeight/2)];
+	_authorLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	[_bottomPanel addSubview:_authorLabel];
+	self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kBottomPanelHeight/2, CGRectGetWidth(_bottomPanel.bounds), kBottomPanelHeight/2)];
 	_titleLabel.textAlignment = NSTextAlignmentCenter;
-	[bottomPanel addSubview:_titleLabel];
+	_titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	[_bottomPanel addSubview:_titleLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -48,5 +54,18 @@ static const CGFloat kBottomPanelHeight = 44.f;
 	_authorLabel.text = _itemInfo.author;
 	_titleLabel.text = _itemInfo.title;
 }
+
+#pragma mark - autorotation
+
+- (BOOL)shouldAutorotate
+{
+	return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+	return UIInterfaceOrientationMaskAll;
+}
+
 
 @end

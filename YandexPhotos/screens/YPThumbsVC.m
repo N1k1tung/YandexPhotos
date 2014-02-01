@@ -39,9 +39,11 @@ static NSString* const kCellID = @"collectionCell";
 {
     [super viewDidLoad];
 	[self.collectionView registerClass:[YPThumbCell class] forCellWithReuseIdentifier:kCellID];
+	self.navigationItem.title = @"Photos";
 	if (!_activityIndicator) {
 		_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		_activityIndicator.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
+		_activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
 	}
 	[self.collectionView addSubview:_activityIndicator];
 	UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
@@ -79,6 +81,18 @@ static NSString* const kCellID = @"collectionCell";
 	
 }
 
+#pragma mark - autorotation
+
+- (BOOL)shouldAutorotate
+{
+	return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+	return UIInterfaceOrientationMaskAll;
+}
+
 #pragma mark - collection view
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -107,7 +121,11 @@ static NSString* const kCellID = @"collectionCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	
+	if (!_photoVC) {
+		_photoVC = [YPPhotoVC new];
+	}
+	_photoVC.itemInfo = [self itemInfoForIndexPath:indexPath];
+	[self.navigationController pushViewController:_photoVC animated:YES];
 }
 
 @end

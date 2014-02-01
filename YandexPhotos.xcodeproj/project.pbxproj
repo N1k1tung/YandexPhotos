@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		A11E5C12189D263700112112 /* YPThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A11E5C11189D263700112112 /* YPThumbCell.m */; };
 		A11E5C15189D265D00112112 /* YPCachingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A11E5C14189D265D00112112 /* YPCachingImageView.m */; };
+		A13833ED189D4D8A00776E4D /* blankImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A13833EC189D4D8A00776E4D /* blankImage.png */; };
+		A13833F0189D4E3100776E4D /* rss.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A13833EE189D4E3100776E4D /* rss.xcdatamodeld */; };
+		A13833F2189D4F6600776E4D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13833F1189D4F6600776E4D /* CoreData.framework */; };
 		A1907982189CE8C9001600F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1907981189CE8C9001600F5 /* UIKit.framework */; };
 		A1907984189CE8C9001600F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1907983189CE8C9001600F5 /* Foundation.framework */; };
 		A1907986189CE8C9001600F5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1907985189CE8C9001600F5 /* CoreGraphics.framework */; };
@@ -48,6 +51,9 @@
 		A11E5C11189D263700112112 /* YPThumbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPThumbCell.m; sourceTree = "<group>"; };
 		A11E5C13189D265D00112112 /* YPCachingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPCachingImageView.h; sourceTree = "<group>"; };
 		A11E5C14189D265D00112112 /* YPCachingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPCachingImageView.m; sourceTree = "<group>"; };
+		A13833EC189D4D8A00776E4D /* blankImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blankImage.png; sourceTree = "<group>"; };
+		A13833EF189D4E3100776E4D /* rss.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = rss.xcdatamodel; sourceTree = "<group>"; };
+		A13833F1189D4F6600776E4D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		A190797D189CE8C9001600F5 /* YandexPhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YandexPhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1907981189CE8C9001600F5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A1907983189CE8C9001600F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -86,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13833F2189D4F6600776E4D /* CoreData.framework in Frameworks */,
 				A1907982189CE8C9001600F5 /* UIKit.framework in Frameworks */,
 				A1907984189CE8C9001600F5 /* Foundation.framework in Frameworks */,
 				A1907986189CE8C9001600F5 /* CoreGraphics.framework in Frameworks */,
@@ -116,6 +123,15 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		A13833EB189D4D8A00776E4D /* resourses */ = {
+			isa = PBXGroup;
+			children = (
+				A13833EC189D4D8A00776E4D /* blankImage.png */,
+				A13833EE189D4E3100776E4D /* rss.xcdatamodeld */,
+			);
+			path = resourses;
+			sourceTree = "<group>";
+		};
 		A1907972189CE8C9001600F5 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +154,7 @@
 		A1907980189CE8C9001600F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A13833F1189D4F6600776E4D /* CoreData.framework */,
 				A1907981189CE8C9001600F5 /* UIKit.framework */,
 				A1907983189CE8C9001600F5 /* Foundation.framework */,
 				A1907985189CE8C9001600F5 /* CoreGraphics.framework */,
@@ -154,6 +171,7 @@
 				A19079EC189CFD07001600F5 /* RSS */,
 				A11E5C0F189D262000112112 /* views */,
 				A19079BA189CEF85001600F5 /* screens */,
+				A13833EB189D4D8A00776E4D /* resourses */,
 				A1907988189CE8C9001600F5 /* Supporting Files */,
 			);
 			path = YandexPhotos;
@@ -303,6 +321,7 @@
 				A1907994189CE8C9001600F5 /* Default.png in Resources */,
 				A1907996189CE8C9001600F5 /* Default@2x.png in Resources */,
 				A1907998189CE8C9001600F5 /* Default-568h@2x.png in Resources */,
+				A13833ED189D4D8A00776E4D /* blankImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +365,7 @@
 				A19079F4189D04E0001600F5 /* YPRSSItem.m in Sources */,
 				A11E5C12189D263700112112 /* YPThumbCell.m in Sources */,
 				A11E5C15189D265D00112112 /* YPCachingImageView.m in Sources */,
+				A13833F0189D4E3100776E4D /* rss.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +547,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A13833EE189D4E3100776E4D /* rss.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A13833EF189D4E3100776E4D /* rss.xcdatamodel */,
+			);
+			currentVersion = A13833EF189D4E3100776E4D /* rss.xcdatamodel */;
+			path = rss.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A1907974189CE8C9001600F5 /* Project object */;
 }

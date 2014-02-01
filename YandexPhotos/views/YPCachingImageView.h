@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YPCachingImageView : UIImageView
+@interface YPCachingImageView : UIImageView <NSURLConnectionDataDelegate>
+
+@property (nonatomic, assign) BOOL fitContents; // default is NO
 
 - (void)setImageWithURL:(NSURL*)imageURL;
 

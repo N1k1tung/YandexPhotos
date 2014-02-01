@@ -36,7 +36,7 @@
 {
 	NSMutableArray* items = nil;
 	@try {
-		NSArray* itemDicts = rssDict[@"rss"][@"channel"][@"items"];
+		NSArray* itemDicts = rssDict[@"rss"][@"channel"][@"item"];
 		items = [NSMutableArray arrayWithCapacity:itemDicts.count];
 		for (NSDictionary *dict in itemDicts) {
 			[items addObject:[[YPRSSItemInfo alloc] initWithDictionary:dict]];

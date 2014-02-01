@@ -9,6 +9,6 @@
 #ifndef YandexPhotos_Constants_h
 #define YandexPhotos_Constants_h
 
-
+#define API_RSS @"http://fotki.yandex.ru/calendar/rss2"
 
 #endif

@@ -21,6 +21,8 @@
 		A19079A2189CE8C9001600F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1907983189CE8C9001600F5 /* Foundation.framework */; };
 		A19079AA189CE8C9001600F5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A19079A8189CE8C9001600F5 /* InfoPlist.strings */; };
 		A19079AD189CE8C9001600F5 /* YandexPhotosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079AC189CE8C9001600F5 /* YandexPhotosTests.m */; };
+		A19079BD189CEF85001600F5 /* YPThumbsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079BC189CEF85001600F5 /* YPThumbsVC.m */; };
+		A19079C1189CF09A001600F5 /* YPPhotoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A19079C0189CF09A001600F5 /* YPPhotoVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,11 @@
 		A19079A9189CE8C9001600F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A19079AB189CE8C9001600F5 /* YandexPhotosTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YandexPhotosTests.h; sourceTree = "<group>"; };
 		A19079AC189CE8C9001600F5 /* YandexPhotosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YandexPhotosTests.m; sourceTree = "<group>"; };
+		A19079B6189CEE01001600F5 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		A19079BB189CEF85001600F5 /* YPThumbsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPThumbsVC.h; sourceTree = "<group>"; };
+		A19079BC189CEF85001600F5 /* YPThumbsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPThumbsVC.m; sourceTree = "<group>"; };
+		A19079BF189CF09A001600F5 /* YPPhotoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPPhotoVC.h; sourceTree = "<group>"; };
+		A19079C0189CF09A001600F5 /* YPPhotoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPPhotoVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +121,7 @@
 			children = (
 				A1907990189CE8C9001600F5 /* YPAppDelegate.h */,
 				A1907991189CE8C9001600F5 /* YPAppDelegate.m */,
+				A19079BA189CEF85001600F5 /* screens */,
 				A1907988189CE8C9001600F5 /* Supporting Files */,
 			);
 			path = YandexPhotos;
@@ -129,6 +137,7 @@
 				A1907993189CE8C9001600F5 /* Default.png */,
 				A1907995189CE8C9001600F5 /* Default@2x.png */,
 				A1907997189CE8C9001600F5 /* Default-568h@2x.png */,
+				A19079B6189CEE01001600F5 /* Constants.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -150,6 +159,17 @@
 				A19079A8189CE8C9001600F5 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A19079BA189CEF85001600F5 /* screens */ = {
+			isa = PBXGroup;
+			children = (
+				A19079BB189CEF85001600F5 /* YPThumbsVC.h */,
+				A19079BC189CEF85001600F5 /* YPThumbsVC.m */,
+				A19079BF189CF09A001600F5 /* YPPhotoVC.h */,
+				A19079C0189CF09A001600F5 /* YPPhotoVC.m */,
+			);
+			path = screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +284,8 @@
 			files = (
 				A190798E189CE8C9001600F5 /* main.m in Sources */,
 				A1907992189CE8C9001600F5 /* YPAppDelegate.m in Sources */,
+				A19079BD189CEF85001600F5 /* YPThumbsVC.m in Sources */,
+				A19079C1189CF09A001600F5 /* YPPhotoVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

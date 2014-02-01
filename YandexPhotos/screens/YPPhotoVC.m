@@ -50,7 +50,7 @@ static const CGFloat kBottomPanelHeight = 44.f;
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[self.imageView setImageWithURL:[NSURL URLWithString:_itemInfo.content.url]];
+	[_imageView setImageWithURL:[NSURL URLWithString:_itemInfo.content.url]];
 	_authorLabel.text = _itemInfo.author;
 	_titleLabel.text = _itemInfo.title;
 }

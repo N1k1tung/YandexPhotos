@@ -90,6 +90,7 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
 	self.activeConnection = nil;
+	[_activity stopAnimating];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data

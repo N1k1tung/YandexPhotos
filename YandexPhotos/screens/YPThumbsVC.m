@@ -15,10 +15,13 @@
 @interface YPThumbsVC ()
 {
 	YPPhotoVC* _photoVC;
-	UIActivityIndicatorView* _activityIndicator;
 }
 
 @property (strong) NSArray* items;
+
+@property (nonatomic, strong) UIActivityIndicatorView* activityIndicator;
+@property (nonatomic, strong) UIRefreshControl* refreshControl;
+
 
 @end
 
@@ -41,15 +44,18 @@ static NSString* const kCellID = @"collectionCell";
 	[self.collectionView registerClass:[YPThumbCell class] forCellWithReuseIdentifier:kCellID];
 	self.navigationItem.title = @"Photos";
 	if (!_activityIndicator) {
-		_activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+		self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		_activityIndicator.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
 		_activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
 	}
 	[self.collectionView addSubview:_activityIndicator];
-	UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
-	[refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-	refreshControl.tintColor = [UIColor grayColor];
-	[self.collectionView addSubview:refreshControl];
+	if (!_refreshControl) {
+		self.refreshControl = [[UIRefreshControl alloc] init];
+		[_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+		_refreshControl.tintColor = [UIColor grayColor];
+	}
+	
+	[self.collectionView addSubview:_refreshControl];
 	self.collectionView.alwaysBounceVertical = YES;
 	
 	[self refresh];
@@ -75,6 +81,7 @@ static NSString* const kCellID = @"collectionCell";
 		}
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[_activityIndicator stopAnimating];
+			[_refreshControl endRefreshing];
 		});
 
 	});

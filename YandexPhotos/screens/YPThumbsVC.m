@@ -11,6 +11,7 @@
 #import "YPRSSItem.h"
 #import "YPThumbCell.h"
 #import "YPPhotoVC.h"
+#import "YPDataStorage.h"
 
 @interface YPThumbsVC ()
 {
@@ -33,7 +34,6 @@ static NSString* const kCellID = @"collectionCell";
 {
     self = [super initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
     if (self) {
-//        self.useLayoutToLayoutNavigationTransitions = NO;
     }
     return self;
 }
@@ -58,6 +58,8 @@ static NSString* const kCellID = @"collectionCell";
 	[self.collectionView addSubview:_refreshControl];
 	self.collectionView.alwaysBounceVertical = YES;
 	
+	self.items = [[YPDataStorage sharedStorage] fetchItems];
+	
 	[self refresh];
 }
 
@@ -74,9 +76,11 @@ static NSString* const kCellID = @"collectionCell";
 		NSError* error = nil;
 		NSDictionary* rss = [YPRSSLoader loadRSS:&error];
 		if (rss) {
-			self.items = [YPRSSLoader itemsFromRSSDictionary:rss];
+			NSArray* items = [YPRSSLoader itemsFromRSSDictionary:rss];
+			self.items = items;
 			dispatch_async(dispatch_get_main_queue(), ^{
 				[self.collectionView reloadData];
+				[[YPDataStorage sharedStorage] rewriteItems:items];
 			});
 		}
 		dispatch_async(dispatch_get_main_queue(), ^{

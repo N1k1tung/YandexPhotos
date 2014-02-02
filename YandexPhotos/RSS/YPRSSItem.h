@@ -14,7 +14,7 @@
 
 @end
 
-@interface YPRSSImageInfo : YPRSSItem
+@interface YPRSSImageInfo : YPRSSItem <NSCoding>
 
 @property (nonatomic, strong) NSString* medium;
 @property (nonatomic, strong) NSString* type;
@@ -25,7 +25,7 @@
 @interface YPRSSItemInfo : YPRSSItem
 
 @property (nonatomic, strong) NSString* author;
-@property (nonatomic, strong) NSString* description;
+@property (nonatomic, strong) NSString* aDescription;
 @property (nonatomic, strong) NSString* link;
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSDate* pubDate;

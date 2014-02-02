@@ -66,8 +66,10 @@
 - (void)setImage:(UIImage *)image
 {
 	[super setImage:image? image : [UIImage imageNamed:@"blankImage"]];
-	if (image && _fitContents)
-		self.bounds = CGRectMake(0, 0, image.size.width, image.size.height);
+	if (image && _fitContents) {
+		CGFloat scale = MAX(1.f, self.contentScaleFactor);
+		self.bounds = CGRectMake(0, 0, image.size.width/scale, image.size.height/scale);
+	}
 }
 
 #pragma mark - image caching

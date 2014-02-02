@@ -15,7 +15,7 @@
 #if DEBUG
 #	define	YPLog(...) NSLog(__VA_ARGS__)
 #else
-#	define	YPLog(...) {}
+#	define	YPLog(...) do {} while (NO)
 #endif
 
 #endif

@@ -48,7 +48,7 @@ static NSString* const kCellID = @"collectionCell";
 		_activityIndicator.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
 		_activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
 	}
-	[self.collectionView addSubview:_activityIndicator];
+	[self.view addSubview:_activityIndicator];
 	if (!_refreshControl) {
 		self.refreshControl = [[UIRefreshControl alloc] init];
 		[_refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];

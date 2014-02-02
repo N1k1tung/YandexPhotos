@@ -20,6 +20,23 @@
 
 @implementation YPCachingImageView
 
+static BOOL sCachingEnabled = NO;
+
++ (void)initialize
+{
+	NSString* cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+	NSString* imagesDir = [cachesDir stringByAppendingPathComponent:IMAGES_DIR];
+	BOOL isDir = NO;
+	if (![[NSFileManager defaultManager] fileExistsAtPath:imagesDir isDirectory:&isDir] || !isDir) {
+		NSError* error = nil;
+		if (![[NSFileManager defaultManager] createDirectoryAtPath:imagesDir withIntermediateDirectories:YES attributes:nil error:&error])
+			YPLog(@"%s: Failed to create directory for image cache: %@", __PRETTY_FUNCTION__, error);
+		else
+			sCachingEnabled = YES;
+	} else
+		sCachingEnabled = YES;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame]) {
@@ -43,7 +60,7 @@
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSString* cachePath = [self cachePathForURLString:imageURL.absoluteString];
 		UIImage* cachedImage = nil;
-		if (cachePath.length && [[NSFileManager defaultManager] fileExistsAtPath:cachePath] && (cachedImage = [UIImage imageWithContentsOfFile:cachePath])) {
+		if (sCachingEnabled && cachePath.length && [[NSFileManager defaultManager] fileExistsAtPath:cachePath] && (cachedImage = [UIImage imageWithContentsOfFile:cachePath])) {
 			dispatch_async(dispatch_get_main_queue(), ^{
 				self.image = cachedImage;
 				[_activity stopAnimating];
@@ -58,8 +75,9 @@
 
 - (void)startRequestWithURL:(NSURL*)imageURL
 {
-	NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
+	NSURLRequest *request = [NSURLRequest requestWithURL:imageURL]; // by default also caching images here
 	self.responseData = [NSMutableData new];
+	self.url = imageURL;
 	self.activeConnection = [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
@@ -77,15 +95,18 @@
 - (NSString*)cachePathForURLString:(NSString*)urlString
 {
 	NSString* cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-	
-	return [cachesDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@.jpg", IMAGES_DIR, [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+	NSString* fileName = [[urlString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/:.?"]] componentsJoinedByString:@""];
+	if (fileName.length)
+		fileName = [fileName substringFromIndex:MAX(0, fileName.length-20)]; // last up to 20 chars
+	return [cachesDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@.jpg", IMAGES_DIR, fileName]];
 }
 
 - (void)cacheImage:(UIImage*)image forURLString:(NSString*)urlString {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString* filePath = [self cachePathForURLString:urlString];
-        [UIImageJPEGRepresentation(image, 1.0f) writeToFile:filePath atomically:YES];
-    });
+	if (urlString.length)
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+			NSString* filePath = [self cachePathForURLString:urlString];
+			[UIImageJPEGRepresentation(image, 1.0f) writeToFile:filePath atomically:YES];
+		});
 }
 
 #pragma mark - NSURLConnection delegate
@@ -103,7 +124,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 	UIImage *image = [UIImage imageWithData:_responseData];
-	if (image)
+	if (image && sCachingEnabled)
 		[self cacheImage:image forURLString:_url.absoluteString];
 	self.image = image;
 	self.responseData = nil;

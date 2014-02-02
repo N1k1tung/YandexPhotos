@@ -14,6 +14,7 @@
 		A13833F2189D4F6600776E4D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13833F1189D4F6600776E4D /* CoreData.framework */; };
 		A18F4D7D189E82A0003DE8C0 /* RSSItemInfoDB.m in Sources */ = {isa = PBXBuildFile; fileRef = A18F4D7C189E82A0003DE8C0 /* RSSItemInfoDB.m */; };
 		A18F4D80189E8742003DE8C0 /* YPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = A18F4D7F189E8742003DE8C0 /* YPDataStorage.m */; };
+		A18F4D85189EB7C1003DE8C0 /* YPPhotoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A18F4D84189EB7C1003DE8C0 /* YPPhotoImageView.m */; };
 		A1907982189CE8C9001600F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1907981189CE8C9001600F5 /* UIKit.framework */; };
 		A1907984189CE8C9001600F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1907983189CE8C9001600F5 /* Foundation.framework */; };
 		A1907986189CE8C9001600F5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1907985189CE8C9001600F5 /* CoreGraphics.framework */; };
@@ -60,6 +61,8 @@
 		A18F4D7C189E82A0003DE8C0 /* RSSItemInfoDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSItemInfoDB.m; sourceTree = "<group>"; };
 		A18F4D7E189E8742003DE8C0 /* YPDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPDataStorage.h; sourceTree = "<group>"; };
 		A18F4D7F189E8742003DE8C0 /* YPDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPDataStorage.m; sourceTree = "<group>"; };
+		A18F4D83189EB7C1003DE8C0 /* YPPhotoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPPhotoImageView.h; sourceTree = "<group>"; };
+		A18F4D84189EB7C1003DE8C0 /* YPPhotoImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPPhotoImageView.m; sourceTree = "<group>"; };
 		A190797D189CE8C9001600F5 /* YandexPhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YandexPhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1907981189CE8C9001600F5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A1907983189CE8C9001600F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -125,6 +128,8 @@
 				A11E5C11189D263700112112 /* YPThumbCell.m */,
 				A11E5C13189D265D00112112 /* YPCachingImageView.h */,
 				A11E5C14189D265D00112112 /* YPCachingImageView.m */,
+				A18F4D83189EB7C1003DE8C0 /* YPPhotoImageView.h */,
+				A18F4D84189EB7C1003DE8C0 /* YPPhotoImageView.m */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -386,6 +391,7 @@
 				A13833F0189D4E3100776E4D /* rss.xcdatamodeld in Sources */,
 				A18F4D7D189E82A0003DE8C0 /* RSSItemInfoDB.m in Sources */,
 				A18F4D80189E8742003DE8C0 /* YPDataStorage.m in Sources */,
+				A18F4D85189EB7C1003DE8C0 /* YPPhotoImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

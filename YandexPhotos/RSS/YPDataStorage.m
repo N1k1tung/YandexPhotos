@@ -62,7 +62,11 @@ static NSString* const kItemInfoEntity = @"RSSItemInfoDB";
 	NSManagedObjectContext* context = self.context;
 	NSFetchRequest* fetch = [NSFetchRequest new];
 	fetch.entity = [NSEntityDescription entityForName:kItemInfoEntity inManagedObjectContext:context];
-	fetch.includesPropertyValues = !managedIDsOnly;
+	if ((fetch.includesPropertyValues = !managedIDsOnly)) {
+		NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pubDate" ascending:NO];
+		if (sortDescriptor)
+			fetch.sortDescriptors = @[sortDescriptor];
+	}
 
 	NSError* error = nil;
 	NSArray* items = [context executeFetchRequest:fetch error:&error];

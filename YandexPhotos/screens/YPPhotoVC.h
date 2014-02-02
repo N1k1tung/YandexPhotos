@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YPPhotoImageView.h"
 
 @class YPRSSItemInfo;
 
-@interface YPPhotoVC : UIViewController
+@interface YPPhotoVC : UIViewController <YPPhotoImageViewDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) YPRSSItemInfo* itemInfo;
 

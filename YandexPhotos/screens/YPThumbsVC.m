@@ -77,10 +77,19 @@ static NSString* const kCellID = @"collectionCell";
 		NSDictionary* rss = [YPRSSLoader loadRSS:&error];
 		if (rss) {
 			NSArray* items = [YPRSSLoader itemsFromRSSDictionary:rss];
-			self.items = items;
+			if (items.count)
+				self.items = items;
 			dispatch_async(dispatch_get_main_queue(), ^{
 				[self.collectionView reloadData];
-				[[YPDataStorage sharedStorage] rewriteItems:items];
+				if (items.count)
+					[[YPDataStorage sharedStorage] rewriteItems:items];
+				else
+					[[[UIAlertView alloc] initWithTitle:@"Warning" message:@"Error while parsing RSS feed." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+			});
+		} else
+		{
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[[[UIAlertView alloc] initWithTitle:@"Warning" message:@"Error while loading RSS feed, check your internet connection." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 			});
 		}
 		dispatch_async(dispatch_get_main_queue(), ^{

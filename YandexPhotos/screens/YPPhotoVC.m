@@ -7,13 +7,15 @@
 //
 
 #import "YPPhotoVC.h"
-#import "YPCachingImageView.h"
 #import "YPRSSItem.h"
 
 @interface YPPhotoVC ()
+{
+	BOOL _enableZoom;
+}
 
 @property (nonatomic, strong) UIScrollView* scrollView;
-@property (nonatomic, strong) YPCachingImageView* imageView;
+@property (nonatomic, strong) YPPhotoImageView* imageView;
 @property (nonatomic, strong) UILabel* authorLabel;
 @property (nonatomic, strong) UILabel* titleLabel;
 @property (nonatomic, strong) UIView* bottomPanel;
@@ -27,9 +29,20 @@ static const CGFloat kBottomPanelHeight = 44.f;
 - (void)loadView
 {
 	self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-	self.imageView = [[YPCachingImageView alloc] initWithFrame:self.view.bounds];
-	_imageView.fitContents = YES;
-	[self.view addSubview:_imageView];
+	self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+	_scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	_scrollView.showsHorizontalScrollIndicator = NO;
+	_scrollView.showsVerticalScrollIndicator = NO;
+	_scrollView.minimumZoomScale = 0.25f;
+	_scrollView.maximumZoomScale = 1.f;
+	_scrollView.bouncesZoom = YES;
+	_scrollView.delegate = self;
+	[self.view addSubview:_scrollView];
+	
+	self.imageView = [[YPPhotoImageView alloc] initWithFrame:self.scrollView.bounds];
+	_imageView.userInteractionEnabled = NO;
+	_imageView.delegate = self;
+	[self.scrollView addSubview:_imageView];
 	
 	self.bottomPanel = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - kBottomPanelHeight, CGRectGetWidth(self.view.bounds), kBottomPanelHeight)];
 	_bottomPanel.userInteractionEnabled = NO;
@@ -50,9 +63,24 @@ static const CGFloat kBottomPanelHeight = 44.f;
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-	[_imageView setImageWithURL:[NSURL URLWithString:_itemInfo.content.url]];
+	_imageView.image = nil;
+	[self resetScale];
+	
+	if (_itemInfo.content.url.length)
+		[_imageView setImageWithURL:[NSURL URLWithString:_itemInfo.content.url]];
+	else
+		[[[UIAlertView alloc] initWithTitle:nil message:@"Can't find image's URL" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+
 	_authorLabel.text = _itemInfo.author;
-	_titleLabel.text = _itemInfo.title;
+	self.navigationItem.title = _titleLabel.text = _itemInfo.title;
+}
+
+- (void)resetScale
+{
+	_scrollView.zoomScale = 1.f;
+	_scrollView.contentSize = CGSizeZero;
+	_scrollView.contentOffset = CGPointZero;
+	_imageView.frame = _scrollView.bounds;
 }
 
 #pragma mark - autorotation
@@ -67,5 +95,25 @@ static const CGFloat kBottomPanelHeight = 44.f;
 	return UIInterfaceOrientationMaskAll;
 }
 
+#pragma mark - image view delegate
+
+- (void)imageViewDidLoadImage:(YPPhotoImageView*)imageView
+{
+	_scrollView.contentSize = imageView.bounds.size;
+	_scrollView.zoomScale = 0.5f;
+	_scrollView.contentOffset = CGPointZero;
+}
+
+- (void)imageViewFailedToLoadImage:(YPPhotoImageView*)imageView
+{
+	[[[UIAlertView alloc] initWithTitle:nil message:@"Failed to load image" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
+
+#pragma mark - scroll view delegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+	return _imageView;
+}
 
 @end

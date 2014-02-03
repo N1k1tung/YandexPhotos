@@ -11,7 +11,7 @@
 
 @interface YPPhotoVC ()
 {
-	BOOL _enableZoom;
+	BOOL _needRefresh;
 }
 
 @property (nonatomic, strong) UIScrollView* scrollView;
@@ -29,6 +29,7 @@ static const CGFloat kBottomPanelHeight = 44.f;
 - (void)loadView
 {
 	self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+	self.view.backgroundColor = [UIColor whiteColor];
 	self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
 	_scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	_scrollView.showsHorizontalScrollIndicator = NO;
@@ -58,28 +59,43 @@ static const CGFloat kBottomPanelHeight = 44.f;
 	_titleLabel.textAlignment = NSTextAlignmentCenter;
 	_titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	[_bottomPanel addSubview:_titleLabel];
+	
+	_needRefresh = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	if (_needRefresh) {
+		_needRefresh = NO;
+		[self refresh];
+	}
+}
+
+- (void)refresh
+{
 	_imageView.image = nil;
 	[self resetScale];
-	
 	if (_itemInfo.content.url.length)
 		[_imageView setImageWithURL:[NSURL URLWithString:_itemInfo.content.url]];
 	else
 		[[[UIAlertView alloc] initWithTitle:nil message:@"Can't find image's URL" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-
+	
 	_authorLabel.text = _itemInfo.author;
 	self.navigationItem.title = _titleLabel.text = _itemInfo.title;
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+	_needRefresh = YES;
 }
 
 - (void)resetScale
 {
 	_scrollView.zoomScale = 1.f;
 	_scrollView.contentSize = CGSizeZero;
-	_scrollView.contentOffset = CGPointZero;
+	_scrollView.contentOffset = CGPointMake(0, -_scrollView.contentInset.top);
 	_imageView.frame = _scrollView.bounds;
 }
 
@@ -101,7 +117,7 @@ static const CGFloat kBottomPanelHeight = 44.f;
 {
 	_scrollView.contentSize = imageView.bounds.size;
 	_scrollView.zoomScale = 0.5f;
-	_scrollView.contentOffset = CGPointZero;
+	_scrollView.contentOffset = CGPointMake(0, -_scrollView.contentInset.top);
 }
 
 - (void)imageViewFailedToLoadImage:(YPPhotoImageView*)imageView

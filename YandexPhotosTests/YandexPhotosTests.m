@@ -34,7 +34,7 @@
 	
 	NSLog(@"RSS dictionary: %@", rss);
 	
-	NSAssert([YPRSSLoader itemsFromRSSDictionary:rss], @"couldn't parse rss dictionary into models");
+	NSAssert([YPRSSLoader itemsFromRSSDictionary:rss].count, @"couldn't parse rss dictionary into models or items array was just empty");
 }
 
 @end

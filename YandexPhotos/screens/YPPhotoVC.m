@@ -29,7 +29,7 @@ static const CGFloat kBottomPanelHeight = 44.f;
 - (void)loadView
 {
 	self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-	self.view.backgroundColor = [UIColor whiteColor];
+	self.view.backgroundColor = [UIColor blackColor];
 	self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
 	_scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	_scrollView.showsHorizontalScrollIndicator = NO;

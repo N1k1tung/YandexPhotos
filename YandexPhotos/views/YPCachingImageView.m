@@ -7,6 +7,7 @@
 //
 
 #import "YPCachingImageView.h"
+#import "YPImageCache.h"
 
 @interface YPCachingImageView () {
 }
@@ -40,7 +41,7 @@ static BOOL sCachingEnabled = NO;
 - (id)initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame]) {
-		self.activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+		self.activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 		_activity.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 		_activity.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
 		[self addSubview:_activity];
@@ -51,6 +52,7 @@ static BOOL sCachingEnabled = NO;
 - (void)setImageWithURL:(NSURL*)imageURL
 {
 	[_activeConnection cancel];
+	[_activity stopAnimating];
 	
 	self.image = nil;
 	if (!imageURL)
@@ -60,10 +62,10 @@ static BOOL sCachingEnabled = NO;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSString* cachePath = [self cachePathForURLString:imageURL.absoluteString];
 		UIImage* cachedImage = nil;
-		if (sCachingEnabled && cachePath.length && [[NSFileManager defaultManager] fileExistsAtPath:cachePath] && (cachedImage = [UIImage imageWithContentsOfFile:cachePath])) {
+		if (sCachingEnabled && cachePath.length && (cachedImage = [self cachedImageForPath:cachePath])) {
 			dispatch_async(dispatch_get_main_queue(), ^{
 				self.image = cachedImage;
-				[_activity stopAnimating];
+				[self.activity stopAnimating];
 			});
 		} else
 			dispatch_async(dispatch_get_main_queue(), ^{
@@ -93,7 +95,7 @@ static BOOL sCachingEnabled = NO;
 	NSString* cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
 	NSString* fileName = [[urlString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/:.?"]] componentsJoinedByString:@""];
 	if (fileName.length)
-		fileName = [fileName substringFromIndex:MAX(0, fileName.length-20)]; // last up to 20 chars
+		fileName = [fileName substringFromIndex:MAX(0, fileName.length-20)]; // up to 20 last chars
 	return [cachesDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@.jpg", IMAGES_DIR, fileName]];
 }
 
@@ -101,8 +103,25 @@ static BOOL sCachingEnabled = NO;
 	if (urlString.length)
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 			NSString* filePath = [self cachePathForURLString:urlString];
+			[[YPImageCache sharedCache] cacheImage:image forPath:filePath];
 			[UIImageJPEGRepresentation(image, 1.0f) writeToFile:filePath atomically:YES];
 		});
+}
+
+- (UIImage*)cachedImageForPath:(NSString*)filePath
+{
+	UIImage* cachedImage = nil;
+	if ((cachedImage = [[YPImageCache sharedCache] imageForPath:filePath]))
+		return cachedImage;
+	
+	if (![[NSFileManager defaultManager] fileExistsAtPath:filePath])
+		return nil;
+	cachedImage = [UIImage imageWithContentsOfFile:filePath];
+	if (cachedImage)
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+			[[YPImageCache sharedCache] cacheImage:cachedImage forPath:filePath];
+		});
+	return cachedImage;
 }
 
 #pragma mark - NSURLConnection delegate
@@ -129,3 +148,5 @@ static BOOL sCachingEnabled = NO;
 }
 
 @end
+
+

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0CB2B5E618A13DCD003C6090 /* YPImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB2B5E518A13DCD003C6090 /* YPImageCache.m */; };
 		A11E5C12189D263700112112 /* YPThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A11E5C11189D263700112112 /* YPThumbCell.m */; };
 		A11E5C15189D265D00112112 /* YPCachingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A11E5C14189D265D00112112 /* YPCachingImageView.m */; };
 		A13833ED189D4D8A00776E4D /* blankImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A13833EC189D4D8A00776E4D /* blankImage.png */; };
@@ -50,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0CB2B5E418A13DCD003C6090 /* YPImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPImageCache.h; sourceTree = "<group>"; };
+		0CB2B5E518A13DCD003C6090 /* YPImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPImageCache.m; sourceTree = "<group>"; };
 		A11E5C10189D263700112112 /* YPThumbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPThumbCell.h; sourceTree = "<group>"; };
 		A11E5C11189D263700112112 /* YPThumbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPThumbCell.m; sourceTree = "<group>"; };
 		A11E5C13189D265D00112112 /* YPCachingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPCachingImageView.h; sourceTree = "<group>"; };
@@ -121,6 +124,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0CB2B5E318A13D58003C6090 /* imageCaching */ = {
+			isa = PBXGroup;
+			children = (
+				0CB2B5E418A13DCD003C6090 /* YPImageCache.h */,
+				0CB2B5E518A13DCD003C6090 /* YPImageCache.m */,
+			);
+			path = imageCaching;
+			sourceTree = "<group>";
+		};
 		A11E5C0F189D262000112112 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +205,7 @@
 				A19079EC189CFD07001600F5 /* RSS */,
 				A11E5C0F189D262000112112 /* views */,
 				A19079BA189CEF85001600F5 /* screens */,
+				0CB2B5E318A13D58003C6090 /* imageCaching */,
 				A13833EB189D4D8A00776E4D /* resourses */,
 				A1907988189CE8C9001600F5 /* Supporting Files */,
 			);
@@ -388,6 +401,7 @@
 				A19079F4189D04E0001600F5 /* YPRSSItem.m in Sources */,
 				A11E5C12189D263700112112 /* YPThumbCell.m in Sources */,
 				A11E5C15189D265D00112112 /* YPCachingImageView.m in Sources */,
+				0CB2B5E618A13DCD003C6090 /* YPImageCache.m in Sources */,
 				A13833F0189D4E3100776E4D /* rss.xcdatamodeld in Sources */,
 				A18F4D7D189E82A0003DE8C0 /* RSSItemInfoDB.m in Sources */,
 				A18F4D80189E8742003DE8C0 /* YPDataStorage.m in Sources */,
@@ -493,6 +507,7 @@
 				GCC_PREFIX_HEADER = "YandexPhotos/YandexPhotos-Prefix.pch";
 				INFOPLIST_FILE = "YandexPhotos/YandexPhotos-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos7.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -504,6 +519,7 @@
 				GCC_PREFIX_HEADER = "YandexPhotos/YandexPhotos-Prefix.pch";
 				INFOPLIST_FILE = "YandexPhotos/YandexPhotos-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos7.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

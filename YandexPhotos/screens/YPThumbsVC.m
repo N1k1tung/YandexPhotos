@@ -72,6 +72,7 @@ static NSString* const kCellID = @"collectionCell";
 - (void)refresh
 {
 	[_activityIndicator startAnimating];
+	[_refreshControl beginRefreshing];
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		NSError* error = nil;
 		NSDictionary* rss = [YPRSSLoader loadRSS:&error];
@@ -127,7 +128,8 @@ static NSString* const kCellID = @"collectionCell";
 
 - (YPRSSItemInfo*)itemInfoForIndexPath:(NSIndexPath*)indexPath
 {
-	return _items[indexPath.row];
+	NSArray* items = self.items;
+	return items.count > indexPath.row? items[indexPath.row] : nil;
 }
 
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

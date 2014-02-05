@@ -21,23 +21,6 @@
 
 @implementation YPCachingImageView
 
-static BOOL sCachingEnabled = NO;
-
-+ (void)initialize
-{
-	NSString* cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-	NSString* imagesDir = [cachesDir stringByAppendingPathComponent:IMAGES_DIR];
-	BOOL isDir = NO;
-	if (![[NSFileManager defaultManager] fileExistsAtPath:imagesDir isDirectory:&isDir] || !isDir) {
-		NSError* error = nil;
-		if (![[NSFileManager defaultManager] createDirectoryAtPath:imagesDir withIntermediateDirectories:YES attributes:nil error:&error])
-			YPLog(@"%s: Failed to create directory for image cache: %@", __PRETTY_FUNCTION__, error);
-		else
-			sCachingEnabled = YES;
-	} else
-		sCachingEnabled = YES;
-}
-
 - (id)initWithFrame:(CGRect)frame
 {
 	if (self = [super initWithFrame:frame]) {
@@ -45,9 +28,12 @@ static BOOL sCachingEnabled = NO;
 		_activity.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 		_activity.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
 		[self addSubview:_activity];
+		self.useMemoryCache = YES;
 	}
 	return self;
 }
+
+#pragma mark - custom set image
 
 - (void)setImageWithURL:(NSURL*)imageURL
 {
@@ -58,21 +44,13 @@ static BOOL sCachingEnabled = NO;
 	if (!imageURL)
 		return;
 	[_activity startAnimating];
-	
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		NSString* cachePath = [self cachePathForURLString:imageURL.absoluteString];
-		UIImage* cachedImage = nil;
-		if (sCachingEnabled && cachePath.length && (cachedImage = [self cachedImageForPath:cachePath])) {
-			dispatch_async(dispatch_get_main_queue(), ^{
-				self.image = cachedImage;
-				[self.activity stopAnimating];
-			});
-		} else
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[self startRequestWithURL:imageURL];
-			});
-	});
-
+		
+	[[YPImageCache sharedCache] cachedImageForURL:imageURL onSuccess:^(UIImage *cachedImage) {
+		self.image = cachedImage;
+		[self.activity stopAnimating];
+	} onFail:^{
+		[self startRequestWithURL:imageURL];
+	} useMemoryCache:_useMemoryCache];
 }
 
 - (void)startRequestWithURL:(NSURL*)imageURL
@@ -86,42 +64,6 @@ static BOOL sCachingEnabled = NO;
 - (void)setImage:(UIImage *)image
 {
 	[super setImage:image? image : [UIImage imageNamed:@"blankImage"]];
-}
-
-#pragma mark - image caching
-
-- (NSString*)cachePathForURLString:(NSString*)urlString
-{
-	NSString* cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-	NSString* fileName = [[urlString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/:.?"]] componentsJoinedByString:@""];
-	if (fileName.length)
-		fileName = [fileName substringFromIndex:MAX(0, fileName.length-20)]; // up to 20 last chars
-	return [cachesDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@.jpg", IMAGES_DIR, fileName]];
-}
-
-- (void)cacheImage:(UIImage*)image forURLString:(NSString*)urlString {
-	if (urlString.length)
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-			NSString* filePath = [self cachePathForURLString:urlString];
-			[[YPImageCache sharedCache] cacheImage:image forPath:filePath];
-			[UIImageJPEGRepresentation(image, 1.0f) writeToFile:filePath atomically:YES];
-		});
-}
-
-- (UIImage*)cachedImageForPath:(NSString*)filePath
-{
-	UIImage* cachedImage = nil;
-	if ((cachedImage = [[YPImageCache sharedCache] imageForPath:filePath]))
-		return cachedImage;
-	
-	if (![[NSFileManager defaultManager] fileExistsAtPath:filePath])
-		return nil;
-	cachedImage = [UIImage imageWithContentsOfFile:filePath];
-	if (cachedImage)
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-			[[YPImageCache sharedCache] cacheImage:cachedImage forPath:filePath];
-		});
-	return cachedImage;
 }
 
 #pragma mark - NSURLConnection delegate
@@ -139,11 +81,12 @@ static BOOL sCachingEnabled = NO;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 	UIImage *image = [UIImage imageWithData:_responseData];
-	if (image && sCachingEnabled)
-		[self cacheImage:image forURLString:_url.absoluteString];
+	if (image)
+		[[YPImageCache sharedCache] cacheImage:image forURL:_url cacheToMemory:_useMemoryCache];
 	self.image = image;
 	self.responseData = nil;
 	self.activeConnection = nil;
+	self.url = nil;
 	[_activity stopAnimating];
 }
 

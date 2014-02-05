@@ -8,11 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^ImageProcessBlock)(UIImage* cachedImage);
+typedef void (^OnFailBlock)();
+
 @interface YPImageCache : NSObject
 
 + (YPImageCache*)sharedCache;
 
-- (UIImage*)imageForPath:(NSString*)filePath;
-- (void)cacheImage:(UIImage*)image forPath:(NSString*)filePath;
+- (void)cachedImageForURL:(NSURL*)URL onSuccess:(ImageProcessBlock)onSuccess onFail:(OnFailBlock)onFail useMemoryCache:(BOOL)useMemoryCache;
+- (void)cachedImageForURL:(NSURL*)URL onSuccess:(ImageProcessBlock)onSuccess onFail:(OnFailBlock)onFail;
+- (void)cacheImage:(UIImage*)image forURL:(NSURL*)URL cacheToMemory:(BOOL)cacheToMemory;
+- (void)cacheImage:(UIImage*)image forURL:(NSURL*)URL;
 
 @end

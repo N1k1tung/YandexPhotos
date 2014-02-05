@@ -12,4 +12,6 @@
 
 - (void)setImageWithURL:(NSURL*)imageURL;
 
+@property (nonatomic, assign) BOOL useMemoryCache; // default YES; avoid stockpiling large images in memory
+
 @end

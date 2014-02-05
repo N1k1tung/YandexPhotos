@@ -41,6 +41,7 @@ static const CGFloat kBottomPanelHeight = 44.f;
 	[self.view addSubview:_scrollView];
 	
 	self.imageView = [[YPPhotoImageView alloc] initWithFrame:self.scrollView.bounds];
+	_imageView.useMemoryCache = NO;
 	_imageView.userInteractionEnabled = NO;
 	_imageView.delegate = self;
 	[self.scrollView addSubview:_imageView];

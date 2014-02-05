@@ -47,6 +47,7 @@ static const CGFloat kBottomPanelHeight = 44.f;
 	[self.scrollView addSubview:_imageView];
 	
 	self.bottomPanel = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds) - kBottomPanelHeight, CGRectGetWidth(self.view.bounds), kBottomPanelHeight)];
+	_bottomPanel.backgroundColor = [UIColor whiteColor];
 	_bottomPanel.userInteractionEnabled = NO;
 	_bottomPanel.alpha = 0.4f;
 	_bottomPanel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;	
@@ -117,7 +118,7 @@ static const CGFloat kBottomPanelHeight = 44.f;
 - (void)imageViewDidLoadImage:(YPPhotoImageView*)imageView
 {
 	_scrollView.contentSize = imageView.bounds.size;
-	_scrollView.zoomScale = 0.5f;
+	_scrollView.zoomScale = 0.5f * (_scrollView.minimumZoomScale + _scrollView.maximumZoomScale);
 	_scrollView.contentOffset = CGPointMake(0, -_scrollView.contentInset.top);
 }
 

@@ -139,6 +139,19 @@
 			path = imageCaching;
 			sourceTree = "<group>";
 		};
+		0CBA6EB118A28DC500A6FA62 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				A1907990189CE8C9001600F5 /* YPAppDelegate.h */,
+				A1907991189CE8C9001600F5 /* YPAppDelegate.m */,
+				A19079EC189CFD07001600F5 /* RSS */,
+				A11E5C0F189D262000112112 /* views */,
+				A19079BA189CEF85001600F5 /* screens */,
+				0CB2B5E318A13D58003C6090 /* imageCaching */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		A11E5C0F189D262000112112 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,12 +165,13 @@
 			path = views;
 			sourceTree = "<group>";
 		};
-		A13833EB189D4D8A00776E4D /* resourses */ = {
+		A13833EB189D4D8A00776E4D /* Resourses */ = {
 			isa = PBXGroup;
 			children = (
 				A13833EC189D4D8A00776E4D /* blankImage.png */,
 				A13833EE189D4E3100776E4D /* rss.xcdatamodeld */,
 			);
+			name = Resourses;
 			path = resourses;
 			sourceTree = "<group>";
 		};
@@ -206,13 +220,8 @@
 		A1907987189CE8C9001600F5 /* YandexPhotos */ = {
 			isa = PBXGroup;
 			children = (
-				A1907990189CE8C9001600F5 /* YPAppDelegate.h */,
-				A1907991189CE8C9001600F5 /* YPAppDelegate.m */,
-				A19079EC189CFD07001600F5 /* RSS */,
-				A11E5C0F189D262000112112 /* views */,
-				A19079BA189CEF85001600F5 /* screens */,
-				0CB2B5E318A13D58003C6090 /* imageCaching */,
-				A13833EB189D4D8A00776E4D /* resourses */,
+				0CBA6EB118A28DC500A6FA62 /* Classes */,
+				A13833EB189D4D8A00776E4D /* Resourses */,
 				A1907988189CE8C9001600F5 /* Supporting Files */,
 			);
 			path = YandexPhotos;

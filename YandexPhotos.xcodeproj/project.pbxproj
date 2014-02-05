@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0CB2B5E618A13DCD003C6090 /* YPImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB2B5E518A13DCD003C6090 /* YPImageCache.m */; };
+		0CBA6EAC18A28B6800A6FA62 /* YPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1907991189CE8C9001600F5 /* YPAppDelegate.m */; };
+		0CBA6EAD18A28B8F00A6FA62 /* RSSItemInfoDB.m in Sources */ = {isa = PBXBuildFile; fileRef = A18F4D7C189E82A0003DE8C0 /* RSSItemInfoDB.m */; };
+		0CBA6EAE18A28B9200A6FA62 /* YPDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = A18F4D7F189E8742003DE8C0 /* YPDataStorage.m */; };
+		0CBA6EAF18A28B9800A6FA62 /* rss.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A13833EE189D4E3100776E4D /* rss.xcdatamodeld */; };
+		0CBA6EB018A28BC300A6FA62 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13833F1189D4F6600776E4D /* CoreData.framework */; };
 		A11E5C12189D263700112112 /* YPThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A11E5C11189D263700112112 /* YPThumbCell.m */; };
 		A11E5C15189D265D00112112 /* YPCachingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A11E5C14189D265D00112112 /* YPCachingImageView.m */; };
 		A13833ED189D4D8A00776E4D /* blankImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A13833EC189D4D8A00776E4D /* blankImage.png */; };
@@ -115,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CBA6EB018A28BC300A6FA62 /* CoreData.framework in Frameworks */,
 				A19079A0189CE8C9001600F5 /* SenTestingKit.framework in Frameworks */,
 				A19079A1189CE8C9001600F5 /* UIKit.framework in Frameworks */,
 				A19079A2189CE8C9001600F5 /* Foundation.framework in Frameworks */,
@@ -413,10 +419,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CBA6EAF18A28B9800A6FA62 /* rss.xcdatamodeld in Sources */,
+				0CBA6EAC18A28B6800A6FA62 /* YPAppDelegate.m in Sources */,
 				A19079AD189CE8C9001600F5 /* YandexPhotosTests.m in Sources */,
 				A19079DA189CF5E2001600F5 /* XMLReader.m in Sources */,
 				A19079F0189CFD25001600F5 /* YPRSSLoader.m in Sources */,
 				A19079F5189D04E0001600F5 /* YPRSSItem.m in Sources */,
+				0CBA6EAD18A28B8F00A6FA62 /* RSSItemInfoDB.m in Sources */,
+				0CBA6EAE18A28B9200A6FA62 /* YPDataStorage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

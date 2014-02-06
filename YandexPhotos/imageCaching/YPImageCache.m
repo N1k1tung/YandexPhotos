@@ -138,9 +138,7 @@
 		return nil;
 	cachedImage = [UIImage imageWithContentsOfFile:filePath];
 	if (cachedImage && useMemoryCache)
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-			[self memCacheImage:cachedImage forPath:filePath];
-		});
+		[self memCacheImage:cachedImage forPath:filePath];
 	return cachedImage;
 }
 

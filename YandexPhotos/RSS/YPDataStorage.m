@@ -7,12 +7,12 @@
 //
 
 #import "YPDataStorage.h"
-#import "RSSItemInfoDB.h"
+#import "YPRSSItemInfoDB.h"
 #import "YPRSSItem.h"
 #import "YPAppDelegate.h"
 #import <objc/runtime.h>
 
-static NSString* const kItemInfoEntity = @"RSSItemInfoDB";
+static NSString* const kItemInfoEntity = @"YPRSSItemInfoDB";
 
 @implementation YPDataStorage
 
@@ -81,8 +81,9 @@ static NSString* const kItemInfoEntity = @"RSSItemInfoDB";
 	[self deleteAllItems];
 	NSManagedObjectContext* context = self.context;
 	for (YPRSSItemInfo* item in newItems) {
-		RSSItemInfoDB* dbItem = [NSEntityDescription insertNewObjectForEntityForName:kItemInfoEntity inManagedObjectContext:context];
-		[YPDataStorage mapFrom:item to:dbItem];
+		YPRSSItemInfoDB* dbItem = [NSEntityDescription insertNewObjectForEntityForName:kItemInfoEntity inManagedObjectContext:context];
+		if (![YPDataStorage mapFrom:item to:dbItem])
+			[context deleteObject:dbItem];
 	}
 	[self saveContext];
 }
@@ -91,14 +92,14 @@ static NSString* const kItemInfoEntity = @"RSSItemInfoDB";
 {
 	NSArray* items = [self fetchItems:YES];
 	NSManagedObjectContext* context = self.context;
-	for (RSSItemInfoDB* item in items) {
+	for (YPRSSItemInfoDB* item in items) {
 		[context deleteObject:item];
 	}
 	
 	[self saveContext];
 }
 
-+ (void)mapFrom:(id)fromVar to:(id)toVar 
++ (BOOL)mapFrom:(id)fromVar to:(id)toVar
 {
 	uint count = 0;
 	objc_property_t *propertyList = NULL;
@@ -115,14 +116,17 @@ static NSString* const kItemInfoEntity = @"RSSItemInfoDB";
 		}
 		@catch (NSException *exception) {
 			YPLog(@"%s: Exception during mapping from %@ to %@: %@", __PRETTY_FUNCTION__, fromVar, toVar, exception);
+			return NO;
 		}
-		if (propertyList) {
-			free(propertyList);
-			propertyList = NULL;
+		@finally {
+			if (propertyList) {
+				free(propertyList);
+				propertyList = NULL;
+			}
 		}
 		classForMapping = [classForMapping superclass];
 	}
-	
+	return YES;
 }
 
 

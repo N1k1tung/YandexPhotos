@@ -16,6 +16,7 @@
 {
 	NSMutableURLRequest *request = [NSMutableURLRequest new];
 	[request setURL:[NSURL URLWithString:API_RSS]];
+	[request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
 	[request setHTTPMethod:@"GET"];
 	
 	NSError *error = nil;
